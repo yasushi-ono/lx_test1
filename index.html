@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LX — セキュリティ・ノベルゲーム</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-container">
+    <!-- タイトル画面 -->
+    <div id="title-screen">
+      <div class="title-content">
+        <h1 class="title-main">LX</h1>
+        <p class="title-sub">— 立ち止まる勇気 —</p>
+        <p class="title-desc">セキュリティ・ノベルゲーム</p>
+        <button id="start-btn" class="btn-start">START</button>
+      </div>
+    </div>
+
+    <!-- ゲーム画面 -->
+    <div id="game-screen" style="display:none;">
+      <!-- 背景レイヤー -->
+      <div id="bg-layer"></div>
+
+      <!-- キャラクターレイヤー -->
+      <div id="char-layer">
+        <img id="char-sprite-left" class="char-sprite" src="" alt="" style="display:none;">
+        <img id="char-sprite-right" class="char-sprite" src="" alt="" style="display:none;">
+      </div>
+
+      <!-- UIオーバーレイ（メール・Slack等） -->
+      <div id="ui-overlay" style="display:none;"></div>
+
+      <!-- 選択肢レイヤー -->
+      <div id="choice-layer" style="display:none;"></div>
+
+      <!-- テキストボックス -->
+      <div id="textbox">
+        <div id="speaker-name" style="display:none;"></div>
+        <div id="text-content"></div>
+        <div id="click-indicator">▼</div>
+      </div>
+
+      <!-- 日付表示 -->
+      <div id="day-label" style="display:none;"></div>
+    </div>
+  </div>
+
+  <script src="scenario.js"></script>
+  <script src="engine.js"></script>
+</body>
+</html>

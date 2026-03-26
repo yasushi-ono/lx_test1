@@ -1,0 +1,654 @@
+/* ========================================
+   LX ノベルゲーム — スタイルシート
+   ======================================== */
+
+/* リセット・基本 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #000;
+  font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* ゲームコンテナ（16:9固定） */
+#game-container {
+  position: relative;
+  width: 1280px;
+  height: 720px;
+  max-width: 100vw;
+  max-height: 100vh;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #1a1a2e;
+}
+
+/* レスポンシブスケーリング */
+@media (max-width: 1280px) {
+  #game-container {
+    width: 100vw;
+    height: calc(100vw * 9 / 16);
+  }
+}
+@media (max-height: 720px) {
+  #game-container {
+    height: 100vh;
+    width: calc(100vh * 16 / 9);
+  }
+}
+
+/* ========================================
+   タイトル画面
+   ======================================== */
+#title-screen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  background-image: url('assets/backgrounds/bg_title.webp');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+#title-screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 20, 0.55);
+  z-index: 0;
+}
+.title-content { text-align: center; color: #fff; position: relative; z-index: 1; }
+.title-main {
+  font-size: 96px;
+  font-weight: 100;
+  letter-spacing: 24px;
+  margin-bottom: 8px;
+  text-shadow: 0 0 40px rgba(100, 149, 237, 0.6);
+}
+.title-sub {
+  font-size: 20px;
+  letter-spacing: 8px;
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+.title-desc {
+  font-size: 14px;
+  letter-spacing: 4px;
+  opacity: 0.4;
+  margin-bottom: 48px;
+}
+.btn-start {
+  padding: 14px 64px;
+  font-size: 16px;
+  letter-spacing: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.4);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+}
+.btn-start:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.8);
+}
+
+/* ========================================
+   ゲーム画面
+   ======================================== */
+#game-screen {
+  position: absolute;
+  inset: 0;
+}
+
+/* 背景レイヤー */
+#bg-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.6s ease;
+}
+
+/* キャラクターレイヤー */
+#char-layer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 720px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 40px;
+  z-index: 10;
+  pointer-events: none;
+}
+/* リザルト画面用：キャラを右寄せ */
+#char-layer.char-right {
+  justify-content: flex-end;
+  padding-right: 40px;
+}
+.char-sprite {
+  max-height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+}
+/* 中村（右） */
+#char-sprite-right {
+  width: 500px;
+}
+/* 藤井（左）：構図が引きなので拡大して顔サイズを中村と揃える */
+#char-sprite-left {
+  width: 500px;
+  transform: scale(1.3);
+  transform-origin: center center;
+}
+/* 話していない方のキャラをやや暗く */
+.char-sprite.inactive {
+  filter: brightness(0.55) drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+}
+
+/* テキストボックス */
+#textbox {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom,
+    rgba(0, 0, 20, 0.0) 0%,
+    rgba(0, 0, 20, 0.85) 15%,
+    rgba(0, 0, 20, 0.95) 100%);
+  padding: 40px 60px 30px;
+  z-index: 20;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+#speaker-name {
+  font-size: 15px;
+  font-weight: bold;
+  color: #7eb8ff;
+  margin-bottom: 10px;
+  padding: 2px 12px;
+  border-left: 3px solid #7eb8ff;
+  letter-spacing: 2px;
+}
+#text-content {
+  font-size: 17px;
+  line-height: 1.85;
+  color: #e8e8f0;
+  letter-spacing: 0.5px;
+  min-height: 60px;
+}
+#click-indicator {
+  position: absolute;
+  bottom: 16px;
+  right: 30px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  animation: blink 1.2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* モノローグ（心の声）スタイル */
+#textbox.thought #text-content {
+  color: #b8c8e8;
+  font-style: italic;
+}
+
+/* ========================================
+   日付ラベル
+   ======================================== */
+#day-label {
+  position: absolute;
+  top: 24px;
+  left: 32px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 3px;
+  padding: 6px 16px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 4px;
+  z-index: 30;
+}
+
+/* ========================================
+   選択肢レイヤー
+   ======================================== */
+#choice-layer {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 20, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  z-index: 50;
+}
+.choice-btn {
+  width: 600px;
+  padding: 20px 32px;
+  font-size: 17px;
+  font-family: inherit;
+  background: rgba(30, 35, 60, 0.9);
+  border: 1px solid rgba(126, 184, 255, 0.3);
+  color: #e8e8f0;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: left;
+  letter-spacing: 0.5px;
+  line-height: 1.6;
+  border-radius: 4px;
+}
+.choice-btn:hover {
+  background: rgba(50, 60, 100, 0.95);
+  border-color: rgba(126, 184, 255, 0.8);
+  transform: translateX(6px);
+  box-shadow: 0 0 20px rgba(100, 149, 237, 0.2);
+}
+.choice-label {
+  font-size: 13px;
+  color: #7eb8ff;
+  margin-bottom: 4px;
+  letter-spacing: 2px;
+}
+
+/* ========================================
+   UIオーバーレイ（メール・Slack・Wi-Fi等）
+   ======================================== */
+#ui-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 40;
+  pointer-events: none;
+}
+#ui-overlay.active {
+  pointer-events: auto;
+}
+#ui-overlay.result-mode {
+  background: transparent;
+  align-items: center;
+}
+
+/* --- メール画面 --- */
+.ui-email {
+  width: 680px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  overflow: hidden;
+  color: #333;
+  font-size: 14px;
+}
+.email-header {
+  background: #f5f5f5;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+.email-header .email-subject {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #222;
+}
+.email-field {
+  font-size: 13px;
+  color: #666;
+  margin: 3px 0;
+}
+.email-field .label { color: #999; margin-right: 8px; }
+.email-field .suspicious { color: #e53e3e; font-weight: bold; }
+.email-body {
+  padding: 20px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+.email-attachment {
+  margin: 12px 20px 20px;
+  padding: 12px 16px;
+  background: #f0f7ff;
+  border: 1px solid #d0e0f0;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #4a6fa5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.email-attachment::before { content: '📎'; }
+
+/* --- アドレス比較 --- */
+.ui-address-compare {
+  width: 560px;
+  background: rgba(20, 20, 40, 0.95);
+  border-radius: 8px;
+  padding: 28px 32px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  color: #e0e0e0;
+}
+.address-compare-title {
+  font-size: 13px;
+  color: #7eb8ff;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+.address-row {
+  margin: 12px 0;
+  font-size: 15px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+.address-row .label {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 4px;
+  font-family: inherit;
+}
+.address-row .addr { letter-spacing: 0.5px; }
+.address-row .addr .highlight {
+  color: #ff6b6b;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #ff6b6b;
+}
+.address-row.real .addr { color: #6bff8a; }
+
+/* --- Slackメッセージ --- */
+.ui-slack {
+  width: 600px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+.slack-header {
+  background: #4a154b;
+  padding: 12px 20px;
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+.slack-channel { font-weight: bold; }
+.slack-messages {
+  padding: 16px 20px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+.slack-msg {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.slack-msg:last-child { margin-bottom: 0; }
+.slack-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  flex-shrink: 0;
+}
+.slack-avatar.sakuraba { background: #e8567c; }
+.slack-avatar.houjo { background: #2e7d32; }
+.slack-avatar.nakamura { background: #1565c0; }
+.slack-avatar.fujii { background: #f57c00; }
+.slack-msg-content { flex: 1; }
+.slack-sender {
+  font-size: 14px;
+  font-weight: bold;
+  color: #1d1c1d;
+  margin-bottom: 4px;
+}
+.slack-text {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* --- パスワードDM --- */
+.slack-dm-password {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 13px;
+  color: #856404;
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+/* --- Wi-Fiダイアログ --- */
+.ui-wifi {
+  width: 360px;
+  background: #f8f8f8;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  overflow: hidden;
+  color: #333;
+}
+.wifi-header {
+  padding: 16px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+.wifi-list { padding: 8px 0; }
+.wifi-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.wifi-name { font-size: 15px; }
+.wifi-icon {
+  font-size: 18px;
+  color: #888;
+}
+.wifi-item.no-lock .wifi-icon { color: #e53e3e; }
+.wifi-item.locked .wifi-icon { color: #38a169; }
+
+/* --- メール作成画面 --- */
+.ui-email-compose {
+  width: 680px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  overflow: hidden;
+  color: #333;
+  font-size: 14px;
+}
+.compose-toolbar {
+  background: #f0f0f0;
+  padding: 10px 16px;
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #ddd;
+}
+.compose-toolbar .btn-send {
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  padding: 6px 24px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: default;
+}
+.compose-fields { padding: 0; }
+.compose-field {
+  display: flex;
+  padding: 10px 16px;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+}
+.compose-field .field-label {
+  color: #888;
+  width: 50px;
+  flex-shrink: 0;
+}
+.compose-field .field-value {
+  color: #333;
+  word-break: break-all;
+}
+.compose-field .field-value .mistake {
+  color: #e53e3e;
+  font-weight: bold;
+  background: #fff0f0;
+  padding: 0 3px;
+  border-radius: 2px;
+}
+.compose-body {
+  padding: 16px;
+  min-height: 80px;
+  line-height: 1.7;
+  color: #555;
+}
+
+/* --- リザルト画面 --- */
+.ui-result {
+  width: 560px;
+  border-radius: 12px;
+  padding: 36px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  margin-left: 40px;
+  margin-right: auto;
+}
+.ui-result.good {
+  background: linear-gradient(135deg, rgba(10, 46, 26, 0.85), rgba(26, 74, 46, 0.85));
+  border: 1px solid rgba(72, 187, 120, 0.3);
+  backdrop-filter: blur(4px);
+}
+.ui-result.normal {
+  background: linear-gradient(135deg, #2e2a0a, #4a3e1a);
+  border: 1px solid rgba(236, 201, 75, 0.3);
+}
+.ui-result.normal-d {
+  background: linear-gradient(135deg, #2e1a0a, #4a2e1a);
+  border: 1px solid rgba(237, 137, 54, 0.3);
+}
+.ui-result.bad {
+  background: linear-gradient(135deg, #2e0a0a, #4a1a1a);
+  border: 1px solid rgba(245, 101, 101, 0.3);
+}
+.result-title {
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 24px;
+  line-height: 1.6;
+  letter-spacing: 1px;
+}
+.result-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0;
+  font-size: 15px;
+  color: #e0e0e0;
+  text-align: left;
+  padding: 6px 20px;
+}
+.result-icon { font-size: 20px; flex-shrink: 0; }
+.result-message {
+  margin-top: 28px;
+  font-size: 16px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.8;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+.result-restart {
+  margin-top: 28px;
+  padding: 12px 48px;
+  font-size: 14px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 4px;
+  transition: all 0.3s;
+}
+.result-restart:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.6);
+}
+
+/* ========================================
+   トランジション・アニメーション
+   ======================================== */
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* 日付トランジション */
+.day-transition {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 60;
+  color: #fff;
+  font-size: 24px;
+  letter-spacing: 6px;
+  opacity: 0;
+  pointer-events: none;
+}
+.day-transition.active {
+  animation: dayTransition 2s ease forwards;
+  pointer-events: auto;
+}
+@keyframes dayTransition {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* UIオーバーレイのクリック閉じボタン */
+.ui-close-hint {
+  position: absolute;
+  bottom: 220px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 2px;
+  z-index: 41;
+}

@@ -1,0 +1,1447 @@
+{
+  "scenes": {
+    "S1": {
+      "dayLabel": "月曜日・朝",
+      "next": "S2",
+      "steps": [
+        {
+          "bg": "bg_office_morning",
+          "day": "月曜日"
+        },
+        {
+          "type": "narration",
+          "text": "月曜日の朝。横浜みなとみらいのオフィスビル、株式会社ブライトリンク。"
+        },
+        {
+          "type": "narration",
+          "text": "Webディレクターの中村遥は、いつもより少し早く出社していた。"
+        },
+        {
+          "char": "nakamura_normal"
+        },
+        {
+          "type": "thought",
+          "text": "（フレッシュマルシェのリニューアル、納期まであと2週間か…\n…。今週が正念場だな）"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "#フレッシュマルシェPJ",
+            "messages": [
+              {
+                "sender": "桜庭美咲",
+                "avatarClass": "sakuraba",
+                "initial": "桜",
+                "text": "中村さん、おはよう。フレッシュマルシェの件、今週中にトップページのカンプとECページの導線設計、両方仕上げてほしい。木曜のクライアントMTGに間に合わせたいの。よろしく！"
+              }
+            ]
+          }
+        },
+        {
+          "type": "thought",
+          "text": "（トップページと導線設計、両方……。結構タイトだな。まあ、\nやるしかないか）"
+        },
+        {
+          "char": "fujii_normal"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "中村さーん、おはようございまーす！"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "中村",
+          "text": "おはよう、藤井。今週ハードになるよ、覚悟しといて"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "っすね！フレッシュマルシェ、やること多いっすもんね。まあ気合いで\n乗り切りましょう！"
+        },
+        {
+          "type": "thought",
+          "text": "（気合いだけで乗り切れるといいんだけど……）"
+        }
+      ]
+    },
+    "S2": {
+      "next": null,
+      "steps": [
+        {
+          "bg": "bg_office_day",
+          "char": "nakamura_normal"
+        },
+        {
+          "type": "narration",
+          "text": "午前中、中村はデザインカンプの作業に集中していた。すると—\n—"
+        },
+        {
+          "type": "thought",
+          "text": "（メールだ。……フレッシュマルシェの田中さんから？）"
+        },
+        {
+          "ui": "email",
+          "uiData": {
+            "subject": "【フレッシュマルシェ】至急：素材データの確認をお願いします",
+            "from": "tanaka@freshmarche-support.com",
+            "suspicious": true,
+            "body": "中村様\n\nお世話になっております。フレッシュマルシェの田中です。\n\nリニューアルに使用する素材データを更新しました。\nお手数ですが、添付ファイルをご確認いただけますでしょうか。\n\nなお、内容に問題がなければ本日中にご返信いただけますと幸いです。\n\nよろしくお願いいたします。",
+            "attachment": "FreshMarche_素材データ_v3.zip (2.4MB)"
+          }
+        },
+        {
+          "type": "thought",
+          "text": "（至急か……。素材データの更新って、今このタイミングで来るかな。\n昨日まで何も言ってなかったのに）"
+        },
+        {
+          "type": "thought",
+          "text": "（……ちょっと待って。このメールアドレス——）"
+        },
+        {
+          "ui": "address_compare",
+          "uiData": {
+            "real": "tanaka@freshmarche.co.jp",
+            "fake": "tanaka@freshmarche<span class='highlight'>-support</span>.com"
+          }
+        },
+        {
+          "type": "thought",
+          "text": "（ドメインが違う。freshmarche.co.jp じゃなくて freshmarche-support.com…\n…？）"
+        },
+        {
+          "char": "nakamura_worried"
+        },
+        {
+          "type": "thought",
+          "text": "（忙しいし、素材の確認は早い方がいい。でも、なんか引っかかる…\n…）"
+        },
+        {
+          "choices": [
+            {
+              "text": "急ぎだし、開いて確認しよう",
+              "next": "S3A",
+              "danger": true,
+              "branchId": "BR1"
+            },
+            {
+              "text": "ちょっと待て、送信元を確認しよう",
+              "next": "S3",
+              "danger": false,
+              "branchId": "BR1"
+            }
+          ]
+        }
+      ]
+    },
+    "S3": {
+      "next": "S4",
+      "steps": [
+        {
+          "bg": "bg_office_day",
+          "char": "nakamura_worried"
+        },
+        {
+          "type": "thought",
+          "text": "（……いや、やっぱりおかしい。田中さんのアドレスはいつも\n co.jp だった。確認しよう）"
+        },
+        {
+          "type": "narration",
+          "text": "中村はメールを開かず、情報システム部の北條にSlackで連絡した。"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "DM: 中村遥 → 北條健一",
+            "messages": [
+              {
+                "sender": "中村遥",
+                "avatarClass": "nakamura",
+                "initial": "中",
+                "text": "北條さん、お忙しいところすみません。フレッシュマルシェの田中さんから、ちょっと怪しいメールが来たんですが……送信元のドメインがいつもと違うんです。見ていただけますか？"
+              },
+              {
+                "sender": "北條健一",
+                "avatarClass": "houjo",
+                "initial": "北",
+                "text": "お、いい判断。ちょっと見せてもらっていい？そのメール、転送じゃなくてスクショで送ってくれる？添付は絶対に開かないでね"
+              }
+            ]
+          }
+        },
+        {
+          "type": "thought",
+          "text": "（転送もダメなのか。知らなかった……）"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "DM: 中村遥 → 北條健一",
+            "messages": [
+              {
+                "sender": "北條健一",
+                "avatarClass": "houjo",
+                "initial": "北",
+                "text": "ありがとう。確認したけど、これ典型的な標的型攻撃メールだね。freshmarche-support.com っていうドメイン、うちとは取引のないドメインだよ。件名に『至急』って入れて焦らせるのも常套手段。開かなくて正解。ナイス判断👍"
+              }
+            ]
+          }
+        },
+        {
+          "type": "thought",
+          "text": "（危なかった……。忙しい時に『至急』って書かれると、つい反射的に開きそうに\nなる）"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "DM: 中村遥 → 北條健一",
+            "messages": [
+              {
+                "sender": "北條健一",
+                "avatarClass": "houjo",
+                "initial": "北",
+                "text": "念のため、田中さん本人にも別ルートで確認とっておいた方がいいよ。あと、このメールは削除しないで保全しておいて。調査に使うから"
+              }
+            ]
+          }
+        },
+        {
+          "type": "dialogue",
+          "speaker": "中村",
+          "text": "わかりました。ありがとうございます"
+        },
+        {
+          "type": "narration",
+          "text": "中村は田中さんに電話で確認し、そのようなメールは送っていないことを確認した。\n北條の言う通り、なりすましだった。"
+        },
+        {
+          "type": "thought",
+          "text": "（聞いてよかった。もし開いてたら……考えるだけでゾッとする）"
+        }
+      ]
+    },
+    "S3A": {
+      "next": "S4",
+      "steps": [
+        {
+          "bg": "bg_office_day",
+          "char": "nakamura_normal"
+        },
+        {
+          "type": "thought",
+          "text": "（至急って書いてあるし、フレッシュマルシェの件だろう。素材データの\n確認なら早い方がいい）"
+        },
+        {
+          "type": "narration",
+          "text": "中村は添付ファイルをダブルクリックした。"
+        },
+        {
+          "type": "narration",
+          "text": "ZIPファイルが展開される。中にはExcelファイルが一つ。\n開こうとすると、一瞬画面がちらつき——"
+        },
+        {
+          "type": "thought",
+          "text": "（あれ？……いや、気のせいか。ファイルは普通に開いたし）"
+        },
+        {
+          "type": "narration",
+          "text": "Excelファイルの中身は、見たことのないデータだった。\nフレッシュマルシェの素材データではなさそうだ。"
+        },
+        {
+          "type": "thought",
+          "text": "（何だこれ……田中さん、ファイル間違えたのかな。まあ、後で聞けばいいか。\n今は作業の方が先だ）"
+        },
+        {
+          "type": "narration",
+          "text": "中村はファイルを閉じ、仕事に戻った。画面の右下で、見慣れないプロセスが\nひっそりと動き始めていたことには、まだ気づいていなかった。"
+        }
+      ]
+    },
+    "S4": {
+      "dayLabel": "火曜日・午前",
+      "next": "S5",
+      "steps": [
+        {
+          "bg": "bg_office_day",
+          "day": "火曜日",
+          "char": "nakamura_normal"
+        },
+        {
+          "type": "narration",
+          "text": "火曜日。フレッシュマルシェのリニューアル作業は順調に進んでいたが、\nオフィスは別案件のミーティングで会議室もデスクも埋まっていた。"
+        },
+        {
+          "char": "fujii_normal"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "中村さん、今日オフィスやばくないすか？全然集中できないんすけど"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "中村",
+          "text": "ほんとだね……。ちょっとカフェで作業しようかな。午前中に導線設計の\nワイヤー仕上げたいし"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "あ、いいっすね。俺もこのあと別件あるんで、オフィスにいますけど。\n頑張ってくださーい"
+        }
+      ]
+    },
+    "S5": {
+      "next": null,
+      "steps": [
+        {
+          "bg": "bg_cafe",
+          "char": "nakamura_normal"
+        },
+        {
+          "type": "narration",
+          "text": "駅前のカフェ。中村はアイスコーヒーを注文し、窓際の電源席に座った。\nノートPCを開く。"
+        },
+        {
+          "type": "thought",
+          "text": "（よし、ここなら集中できる。まずフレッシュマルシェの管理画面を開いて、\n現状のページ構成を確認しないと——）"
+        },
+        {
+          "type": "narration",
+          "text": "テザリングを繋ぐ。……が、やけに遅い。"
+        },
+        {
+          "type": "thought",
+          "text": "（うーん、テザリング遅いな……。動画見てるわけでもないのに。\nページの読み込みに時間かかりすぎる）"
+        },
+        {
+          "type": "narration",
+          "text": "テーブルの端に、小さなPOPが目に入る。「Free Wi-Fi available —\n パスワード不要でご利用いただけます」"
+        },
+        {
+          "ui": "wifi",
+          "uiData": {}
+        },
+        {
+          "type": "thought",
+          "text": "（フリーWi-Fiか。繋いだら一瞬で読み込めるんだろうな…\n…）"
+        },
+        {
+          "type": "thought",
+          "text": "（でも、これからフレッシュマルシェの管理画面にログインするんだよな。\n顧客のIDとパスワード入れるのに、暗号化されてないWi-Fiはさすがに…\n…）"
+        },
+        {
+          "choices": [
+            {
+              "text": "フリーWi-Fiに繋いで作業しよう",
+              "next": "S5A",
+              "danger": true,
+              "branchId": "BR2"
+            },
+            {
+              "text": "遅くてもテザリングで我慢しよう",
+              "next": "S5B",
+              "danger": false,
+              "branchId": "BR2"
+            }
+          ]
+        }
+      ]
+    },
+    "S5B": {
+      "next": "S6",
+      "steps": [
+        {
+          "bg": "bg_cafe",
+          "char": "nakamura_normal"
+        },
+        {
+          "type": "thought",
+          "text": "（……我慢しよう。遅いけど、顧客の認証情報を公共Wi-Fiに流すわけには\nいかない）"
+        },
+        {
+          "type": "narration",
+          "text": "中村は少しもどかしさを感じながら、テザリングのまま作業を続けた。\n読み込みに時間はかかるが、ワイヤーフレームの作業はローカルファイルだ。\n管理画面の確認だけ少し我慢すればいい。"
+        },
+        {
+          "type": "thought",
+          "text": "（昨日の偽メールの件もあるし……今週はちょっと慎重にいこう）"
+        }
+      ]
+    },
+    "S5A": {
+      "next": "S6",
+      "steps": [
+        {
+          "bg": "bg_cafe",
+          "char": "nakamura_normal"
+        },
+        {
+          "type": "thought",
+          "text": "（テザリング遅すぎる……。フリーWi-Fiでサクッとやっちゃおう。\nみんな普通に使ってるし、大丈夫でしょ）"
+        },
+        {
+          "type": "narration",
+          "text": "中村はフリーWi-Fiに接続した。読み込み速度が劇的に改善される。"
+        },
+        {
+          "type": "thought",
+          "text": "（速い。やっぱこっちだよな。よし、フレッシュマルシェの管理画面に\nログインして——）"
+        },
+        {
+          "type": "narration",
+          "text": "中村はフリーWi-Fi経由でフレッシュマルシェの管理画面にログインし、\n作業を進めた。カフェの周囲には、同じWi-Fiに繋いでいる見知らぬ人たちが\nいる。通信内容が暗号化されていないことに、中村は気づいていなかった。"
+        },
+        {
+          "type": "thought",
+          "text": "（うん、順調。これなら午前中にワイヤー仕上がるな）"
+        }
+      ]
+    },
+    "S6": {
+      "next": null,
+      "steps": [
+        {
+          "bg": "bg_office_evening",
+          "day": "火曜日・夕方",
+          "char": "nakamura_normal"
+        },
+        {
+          "type": "narration",
+          "text": "夕方、オフィスに戻った中村。カフェで仕上げたワイヤーフレームを元に、\n実装の確認を進めていた。"
+        },
+        {
+          "char": "fujii_please"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "中村さん、すんません、ちょっとお願いがあるんすけど……"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "中村",
+          "text": "ん？どうした？"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "フレッシュマルシェの管理画面、俺のアカウントだとアクセス権限なくて見れないんすよ。\n桜庭さんに聞いたら『中村さんに聞いて』って言われて"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "中村",
+          "text": "ああ、あのページね。ディレクター権限じゃないと見れないんだよね"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "そうなんすよ。で、中村さんのアカウントで先にログインして、\n俺に確認させてもらえません？パスワード、Slackで送ってもらえると\n助かるんすけど"
+        },
+        {
+          "type": "thought",
+          "text": "（パスワードをSlackで送る……？）"
+        },
+        {
+          "char": "nakamura_worried"
+        },
+        {
+          "type": "thought",
+          "text": "（急いでるのはわかる。藤井も悪気はないし、このくらいなら—\n—って思うけど……いや、ダメだよな。Slackの履歴に平文で\nパスワード残るし）"
+        },
+        {
+          "choices": [
+            {
+              "text": "今回だけね（SlackのDMでパスワードを送る）",
+              "next": "S6A",
+              "danger": true,
+              "branchId": "BR3"
+            },
+            {
+              "text": "自分でログインして見せるよ",
+              "next": "S6B",
+              "danger": false,
+              "branchId": "BR3"
+            }
+          ]
+        }
+      ]
+    },
+    "S6B": {
+      "next": "S7",
+      "steps": [
+        {
+          "bg": "bg_office_evening",
+          "char": "nakamura_normal"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "中村",
+          "text": "パスワード送るのはちょっとやめとくね。Slackに履歴残っちゃうし"
+        },
+        {
+          "char": "fujii_normal"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "あ、そうなんすか？みんな普通にやってません？"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "中村",
+          "text": "うーん、やってる人もいるかもだけど……。ちょっと待って、\n私がログインするから、一緒に画面見よう"
+        },
+        {
+          "type": "narration",
+          "text": "中村は自分のPCでフレッシュマルシェの管理画面にログインし、\n藤井を隣に座らせて画面を一緒に確認した。"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "あー、ここっすね！了解です、ありがとうございます！……あ、\n今度から俺もそうしますね"
+        },
+        {
+          "type": "thought",
+          "text": "（ちょっと面倒だったけど、これでいい。パスワードは自分で管理しないと）"
+        }
+      ]
+    },
+    "S6A": {
+      "next": "S7",
+      "steps": [
+        {
+          "bg": "bg_office_evening",
+          "char": "nakamura_worried"
+        },
+        {
+          "type": "thought",
+          "text": "（パスワードを送るのは良くないって、研修で聞いた気がするけど…\n…。でも今、私が席立って画面見せに行く余裕ない。桜庭さんに『今日中』\nって言われてるし）"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "中村",
+          "text": "……わかった、今回だけだよ。DMで送るから、確認終わったらすぐ消してね"
+        },
+        {
+          "char": "fujii_normal"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "了解っす！ありがとうございまーす！"
+        },
+        {
+          "ui": "slack_dm_password",
+          "uiData": {}
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "ログインできましたー！確認しまーす！"
+        },
+        {
+          "type": "thought",
+          "text": "（……まあ、DMだし大丈夫だよね。藤井も消してくれるって言ってたし）"
+        },
+        {
+          "type": "narration",
+          "text": "藤井は確認作業を進めた。そして、そのパスワードを「消す」\nことを、忙しさの中でそのまま忘れてしまった。SlackのDMの履歴には、\n平文のパスワードがそのまま残り続けた。"
+        }
+      ]
+    },
+    "S7": {
+      "dayLabel": "水曜日・朝",
+      "next": null,
+      "steps": [
+        {
+          "bg": "bg_office_morning",
+          "day": "水曜日",
+          "char": "nakamura_normal"
+        },
+        {
+          "type": "narration",
+          "text": "水曜日の朝。フレッシュマルシェのリニューアルは順調に進んでいたが、\n桜庭マネージャーから新しい指示が飛んできた。"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "#フレッシュマルシェPJ",
+            "messages": [
+              {
+                "sender": "桜庭美咲",
+                "avatarClass": "sakuraba",
+                "initial": "桜",
+                "text": "中村さん、ごめんだけど急ぎのお願い。フレッシュマルシェの関係者全員に、今の進捗状況をメールで共有してほしい。先方の部長も含めて20人くらいいるから、宛先リストは添付のExcelを参照して。午前中に送ってもらえると助かる！"
+              }
+            ]
+          }
+        },
+        {
+          "type": "thought",
+          "text": "（20人……。結構多いな。宛先リストから一つずつ入れなきゃいけないのか）"
+        },
+        {
+          "type": "narration",
+          "text": "中村はExcelの宛先リストを開き、メールの作成を始めた。\n本文はすぐに書けた。あとは宛先を入れるだけ——"
+        },
+        {
+          "type": "thought",
+          "text": "（えっと、フレッシュマルシェ側の人はBccに入れて、うちの社内メンバーは\nCcでいいんだよな。社外の人同士のメールアドレスが見えないようにしないと…\n…）"
+        },
+        {
+          "type": "narration",
+          "text": "20人分のアドレスを入力し終えた。本文も確認した。あとは送信ボタンを押すだけ\n——"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "#フレッシュマルシェPJ",
+            "messages": [
+              {
+                "sender": "桜庭美咲",
+                "avatarClass": "sakuraba",
+                "initial": "桜",
+                "text": "中村さん、あのメールまだ？先方の部長から『情報共有まだか』って催促来てる。すぐお願い！"
+              }
+            ]
+          }
+        },
+        {
+          "type": "thought",
+          "text": "（急かされてる……。もう本文は書いたし、宛先も入れたし、\n送っちゃうか——）"
+        },
+        {
+          "type": "thought",
+          "text": "（いや、待って。宛先20人もあるんだから、Bccの欄ちゃんと確認した方が\nいい。もし社外の人をCcに入れてたら、全員のアドレスが丸見えになる…\n…）"
+        },
+        {
+          "choices": [
+            {
+              "text": "急ぎだし、このまま送信！",
+              "next": "S8A",
+              "danger": true,
+              "branchId": "BR4"
+            },
+            {
+              "text": "一回落ち着いて、宛先を確認しよう",
+              "next": "S8",
+              "danger": false,
+              "branchId": "BR4"
+            }
+          ]
+        }
+      ]
+    },
+    "S8": {
+      "next": null,
+      "nextRoute": {
+        "type": "danger_count",
+        "good": "S9G",
+        "normal": "S9N",
+        "bad": "S9B"
+      },
+      "steps": [
+        {
+          "bg": "bg_office_morning",
+          "char": "nakamura_normal"
+        },
+        {
+          "type": "thought",
+          "text": "（……1分だけ確認しよう。催促されてても、1分で取り返しのつかないミスを\n防げるなら安い）"
+        },
+        {
+          "type": "narration",
+          "text": "中村はメールの宛先欄を上からひとつずつ確認した。"
+        },
+        {
+          "type": "thought",
+          "text": "（To：桜庭さん……OK。Cc：うちのチームメンバー3人…\n…OK。Bcc：フレッシュマルシェの——）"
+        },
+        {
+          "char": "nakamura_panic"
+        },
+        {
+          "type": "thought",
+          "text": "（……あ）"
+        },
+        {
+          "type": "thought",
+          "text": "（フレッシュマルシェの部長と営業部の6人、Bccじゃなくて Cc に\n入れてる……！このまま送ってたら、社外の人全員に他の人のアドレスが\n見える状態になってた……）"
+        },
+        {
+          "type": "narration",
+          "text": "中村は慌てて宛先を修正した。社外関係者をすべてBccに移し替え、\nもう一度全体を確認してから送信ボタンを押した。"
+        },
+        {
+          "char": "nakamura_relief"
+        },
+        {
+          "type": "thought",
+          "text": "（……危なかった。あのまま送ってたら、個人情報漏洩だよ。\n桜庭さんに急かされて焦ってた）"
+        },
+        {
+          "type": "thought",
+          "text": "（1分の確認で、大事故を防げた。急いでても、送信前の確認だけは絶対に\nサボっちゃダメだ）"
+        }
+      ]
+    },
+    "S8A": {
+      "next": null,
+      "nextRoute": {
+        "type": "danger_count",
+        "good": "S9G",
+        "normal": "S9N",
+        "bad": "S9B"
+      },
+      "steps": [
+        {
+          "bg": "bg_office_morning",
+          "char": "nakamura_normal"
+        },
+        {
+          "type": "thought",
+          "text": "（桜庭さんに急かされてる。もう本文はできてるし、宛先も入れたし—\n—送ろう！）"
+        },
+        {
+          "type": "narration",
+          "text": "中村は送信ボタンを押した。メールは一瞬で20人に届いた。"
+        },
+        {
+          "type": "thought",
+          "text": "（よし、送った。これで桜庭さんにも報告できる——）"
+        },
+        {
+          "type": "narration",
+          "text": "……数秒後。中村はふと、送信済みメールを開いて確認した。"
+        },
+        {
+          "char": "nakamura_panic"
+        },
+        {
+          "type": "thought",
+          "text": "（あ——）"
+        },
+        {
+          "type": "thought",
+          "text": "（フレッシュマルシェの部長と営業部の6人……Bccじゃなくて Cc に\n入ってる。全員のアドレスが、他の全員に見える状態で送っちゃった…\n…）"
+        },
+        {
+          "type": "thought",
+          "text": "（……どうしよう）"
+        },
+        {
+          "type": "narration",
+          "text": "送信取り消しはできない。メールは既に相手の受信トレイに届いている。"
+        }
+      ]
+    },
+    "S9G": {
+      "dayLabel": "木曜日",
+      "next": "S10G",
+      "steps": [
+        {
+          "bg": "bg_office_day",
+          "day": "木曜日",
+          "char": "nakamura_normal"
+        },
+        {
+          "type": "narration",
+          "text": "木曜日。フレッシュマルシェのクライアントMTGは無事に終了し、\nカンプの方向性も承認された。"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "DM: 北條健一 → 中村遥",
+            "messages": [
+              {
+                "sender": "北條健一",
+                "avatarClass": "houjo",
+                "initial": "北",
+                "text": "中村さん、月曜の件、あらためてありがとう。あの標的型メール、調査したら他の社員にも同じメールが届いてた。中村さんが報告してくれたおかげで、社内全体に注意喚起できたよ。助かった"
+              }
+            ]
+          }
+        },
+        {
+          "type": "thought",
+          "text": "（他の人にも届いてたのか……。もし私が何も言わずに開いてたら、\nそこから社内に広がってた可能性もあるってことか）"
+        },
+        {
+          "char": "fujii_normal"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "中村さん、月曜のあの怪しいメールの件、俺にも来てたっぽいっす。\n北條さんから注意喚起来て知りました。中村さんが気づいてくれたおかげっすね"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "中村",
+          "text": "え、藤井のとこにも来てたの？"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "はい。俺、正直あのまま開いてたと思います。『至急』って書いてあったし。\n中村さんが報告してなかったら、やばかったっすね……"
+        },
+        {
+          "type": "thought",
+          "text": "（……月曜日、忙しい中でも一瞬立ち止まってよかった）"
+        }
+      ]
+    },
+    "S10G": {
+      "dayLabel": "金曜日・夕方",
+      "next": "S11G",
+      "steps": [
+        {
+          "bg": "bg_office_evening",
+          "day": "金曜日",
+          "char": "nakamura_normal"
+        },
+        {
+          "type": "narration",
+          "text": "金曜日の夕方。怒涛の一週間がようやく終わろうとしていた。"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "DM: 桜庭美咲 → 中村遥",
+            "messages": [
+              {
+                "sender": "桜庭美咲",
+                "avatarClass": "sakuraba",
+                "initial": "桜",
+                "text": "中村さん、今週お疲れ様。フレッシュマルシェの件、いいペースで進んでるね。来週もよろしく！あと、北條さんから聞いたけど、セキュリティの件ありがとう。頼りにしてるよ"
+              }
+            ]
+          }
+        },
+        {
+          "type": "thought",
+          "text": "（……今週、結構ギリギリだったな。怪しいメール、カフェのWi-Fi、\n藤井のパスワードの件、メールの宛先……）"
+        },
+        {
+          "type": "thought",
+          "text": "（どれも、忙しいから、急いでるから、って理由で見過ごしてたら、\n全部やらかしてたかもしれない）"
+        },
+        {
+          "char": "fujii_normal"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "中村さーん、お疲れ様っす！今週ヤバかったっすね。あ、そういえば俺、\nパスワード付箋に書くのやめました。北條さんにパスワードマネージャーってや\nつ教えてもらったんで"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "中村",
+          "text": "お、いいじゃん。それ大事だよ"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "中村さんに言われたの、地味に刺さったんすよね。『Slackに履歴残る』\nって。確かにそうだなって"
+        },
+        {
+          "type": "thought",
+          "text": "（藤井、ちゃんと変わろうとしてるんだ。……私も、もっとちゃんとしよう）"
+        }
+      ]
+    },
+    "S11G": {
+      "next": "S12G",
+      "steps": [
+        {
+          "bg": "bg_office_evening",
+          "char": "nakamura_relief"
+        },
+        {
+          "type": "narration",
+          "text": "中村は帰り支度をしながら、今週のことを振り返った。"
+        },
+        {
+          "type": "thought",
+          "text": "（セキュリティって、特別なことじゃない。毎日の判断の積み重ねなんだ）"
+        },
+        {
+          "type": "thought",
+          "text": "（怪しいメールが来たら、1秒立ち止まってアドレスを見る）"
+        },
+        {
+          "type": "thought",
+          "text": "（公共Wi-Fiでは、業務データを扱わない）"
+        },
+        {
+          "type": "thought",
+          "text": "（パスワードは、たとえ同僚でも共有しない）"
+        },
+        {
+          "type": "thought",
+          "text": "（メールを送る前に、宛先を確認する）"
+        },
+        {
+          "type": "thought",
+          "text": "（どれも、知ってたはずのことだ。でも、忙しい時ほど忘れそうになる）"
+        },
+        {
+          "type": "thought",
+          "text": "（だからこそ、「立ち止まる勇気」がいるんだな——）"
+        },
+        {
+          "type": "narration",
+          "text": "窓の外では、みなとみらいのビル群が夕日に照らされていた。"
+        },
+        {
+          "type": "narration",
+          "text": "中村遥の長い一週間は、こうして終わった。"
+        }
+      ]
+    },
+    "S12G": {
+      "next": null,
+      "steps": [
+        {
+          "bg": "result_good",
+          "char": "none"
+        },
+        {
+          "ui": "result",
+          "uiData": {
+            "grade": "good",
+            "title": "結果：すべてのリスクを回避しました！",
+            "items": [
+              {
+                "status": "ok",
+                "text": "標的型攻撃メール → 送信元を確認し、情シスに報告"
+              },
+              {
+                "status": "ok",
+                "text": "公共Wi-Fi → テザリングで安全に作業"
+              },
+              {
+                "status": "ok",
+                "text": "パスワード共有 → 画面共有で対応"
+              },
+              {
+                "status": "ok",
+                "text": "メール誤送信 → 送信前に宛先を確認"
+              }
+            ],
+            "message": "「便利さとスピードの裏にリスクがある。\nでも、立ち止まって確認する勇気が、\n自分と会社を守る。」"
+          }
+        }
+      ]
+    },
+    "S9N": {
+      "dayLabel": "木曜日",
+      "next": "S10N",
+      "steps": [
+        {
+          "bg": "bg_office_tense",
+          "day": "木曜日",
+          "char": "nakamura_worried"
+        },
+        {
+          "type": "narration",
+          "text": "木曜日。フレッシュマルシェのクライアントMTGは無事に終わったが、\n中村は何か引っかかるものを感じていた。"
+        }
+      ]
+    },
+    "S10N": {
+      "next": null,
+      "steps": [
+        {
+          "bg": "bg_office_tense",
+          "char": "nakamura_panic"
+        },
+        {
+          "type": "thought",
+          "text": "（これ……もしかして……あの時の……？）"
+        },
+        {
+          "type": "thought",
+          "text": "（……桜庭さんに報告した方がいいよな。でも、言ったら怒られるだろうし、\n評価にも響くかもしれない……）"
+        },
+        {
+          "type": "thought",
+          "text": "（もしかしたら、このまま何事もなく過ぎるかもしれない。大事になる前に自分で\n何とか——）"
+        },
+        {
+          "choices": [
+            {
+              "text": "すぐに桜庭さんと北條さんに報告する",
+              "next": "S11NC",
+              "danger": false,
+              "branchId": "BR5",
+              "value": "C"
+            },
+            {
+              "text": "もう少し様子を見よう……",
+              "next": "S11ND",
+              "danger": false,
+              "branchId": "BR5",
+              "value": "D"
+            }
+          ]
+        }
+      ]
+    },
+    "S11NC": {
+      "next": "S12NC",
+      "steps": [
+        {
+          "bg": "bg_office_evening",
+          "char": "nakamura_worried"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "DM: 中村遥 → 桜庭美咲",
+            "messages": [
+              {
+                "sender": "中村遥",
+                "avatarClass": "nakamura",
+                "initial": "中",
+                "text": "桜庭さん、すみません。ちょっとお話したいことがあるんですが……"
+              },
+              {
+                "sender": "桜庭美咲",
+                "avatarClass": "sakuraba",
+                "initial": "桜",
+                "text": "中村さん、ちょっと電話いい？"
+              }
+            ]
+          }
+        },
+        {
+          "type": "narration",
+          "text": "中村は桜庭マネージャーに、今週起きたことを正直に報告した。"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "DM: 桜庭美咲 → 中村遥",
+            "messages": [
+              {
+                "sender": "桜庭美咲",
+                "avatarClass": "sakuraba",
+                "initial": "桜",
+                "text": "……正直、もっと早く言ってほしかった。でも、今の時点で報告してくれたのは正しい判断だよ。北條さんにも連絡入れるから、一緒に対応しよう"
+              }
+            ]
+          }
+        },
+        {
+          "type": "narration",
+          "text": "北條が迅速に対応し、被害の範囲を確認。幸い、実害は最小限に留まった。"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "DM: 北條健一 → 中村遥",
+            "messages": [
+              {
+                "sender": "北條健一",
+                "avatarClass": "houjo",
+                "initial": "北",
+                "text": "中村さん、確認終わったよ。今回は大事に至らなかった。でも、次からはもっと早く連絡してね。セキュリティの問題は、時間が経つほど悪化するから"
+              }
+            ]
+          }
+        },
+        {
+          "char": "nakamura_relief"
+        },
+        {
+          "type": "thought",
+          "text": "（怒られると思ったけど……報告してよかった。隠してたら、\nもっと大変なことになってたかもしれない）"
+        },
+        {
+          "char": "fujii_shock"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "中村さん……俺も、パスワードの件とか、ちゃんとしなきゃいけなかったっすね。\nすんませんでした"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "中村",
+          "text": "私も甘かった。次からは一緒に気をつけよう"
+        }
+      ]
+    },
+    "S12NC": {
+      "next": null,
+      "steps": [
+        {
+          "bg": "result_normal",
+          "char": "nakamura_relief"
+        },
+        {
+          "ui": "result",
+          "uiData": {
+            "grade": "normal",
+            "title": "結果：一部のリスクを見過ごしましたが、\n報告したことで被害を最小限に抑えました。",
+            "items": [
+              {
+                "status": "dynamic",
+                "text": ""
+              },
+              {
+                "status": "dynamic",
+                "text": ""
+              },
+              {
+                "status": "dynamic",
+                "text": ""
+              },
+              {
+                "status": "dynamic",
+                "text": ""
+              }
+            ],
+            "message": "「失敗しても、すぐに報告する勇気が\n最悪の事態を防ぐ。」"
+          }
+        }
+      ]
+    },
+    "S11ND": {
+      "next": "S12ND",
+      "steps": [
+        {
+          "bg": "bg_office_tense",
+          "char": "nakamura_panic"
+        },
+        {
+          "type": "thought",
+          "text": "（大丈夫、たぶん大丈夫。このまま静かに過ぎてくれれば——\n）"
+        },
+        {
+          "type": "narration",
+          "text": "金曜日の朝。中村の希望は打ち砕かれた。"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "DM: 桜庭美咲 → 中村遥",
+            "messages": [
+              {
+                "sender": "桜庭美咲",
+                "avatarClass": "sakuraba",
+                "initial": "桜",
+                "text": "中村さん、今すぐ会議室に来て"
+              }
+            ]
+          }
+        },
+        {
+          "type": "narration",
+          "text": "桜庭マネージャーの声は、いつもより低かった。北條も同席していた。"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "回想",
+            "messages": [
+              {
+                "sender": "北條健一",
+                "avatarClass": "houjo",
+                "initial": "北",
+                "text": "中村さん、状況は把握したよ。対応は今からでもできる。でも——なんでもっと早く相談してくれなかったのかな。木曜の時点で気づいてたんだよね？"
+              }
+            ]
+          }
+        },
+        {
+          "type": "thought",
+          "text": "（……何も言えない。気づいてた。でも、言えなかった）"
+        },
+        {
+          "type": "narration",
+          "text": "北條の対応で、最悪の事態は回避できた。しかし、もっと早く報告していれば対処は\nずっと簡単だったはずだ。"
+        },
+        {
+          "char": "nakamura_worried"
+        },
+        {
+          "type": "thought",
+          "text": "（「怒られるかも」が怖くて、報告を遅らせた。でもその間、\n問題はどんどん広がっていた……）"
+        },
+        {
+          "type": "thought",
+          "text": "（次は……絶対に、すぐ報告する。怖くても。それが一番マシな選択だって、\n今はわかるから）"
+        }
+      ]
+    },
+    "S12ND": {
+      "next": null,
+      "steps": [
+        {
+          "bg": "result_normal",
+          "char": "nakamura_worried"
+        },
+        {
+          "ui": "result",
+          "uiData": {
+            "grade": "normal-d",
+            "title": "結果：問題に気づきながら報告が遅れ、\n被害が拡大しました。",
+            "items": [
+              {
+                "status": "dynamic",
+                "text": ""
+              },
+              {
+                "status": "dynamic",
+                "text": ""
+              },
+              {
+                "status": "dynamic",
+                "text": ""
+              },
+              {
+                "status": "dynamic",
+                "text": ""
+              }
+            ],
+            "message": "「気づいた時が、一番早いタイミング。\n報告は、遅れるほどコストが増える。」"
+          }
+        }
+      ]
+    },
+    "S9B": {
+      "dayLabel": "木曜日",
+      "next": "S10B",
+      "steps": [
+        {
+          "bg": "bg_office_tense",
+          "day": "木曜日",
+          "char": "nakamura_panic"
+        },
+        {
+          "type": "narration",
+          "text": "木曜日の朝から、中村の周りで異変が立て続けに起きた。"
+        },
+        {
+          "type": "thought",
+          "text": "（なんかPCの動きがおかしい……いつもよりずっと重い）"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "DM: 北條健一 → 中村遥",
+            "messages": [
+              {
+                "sender": "北條健一",
+                "avatarClass": "houjo",
+                "initial": "北",
+                "text": "中村さん、急ぎで確認。フレッシュマルシェの管理画面に不審なアクセス記録が複数見つかった。心当たりある？"
+              }
+            ]
+          }
+        },
+        {
+          "type": "thought",
+          "text": "（え……不審なアクセス？）"
+        },
+        {
+          "ui": "email",
+          "uiData": {
+            "subject": "Re: メールの宛先について",
+            "from": "佐藤部長 <sato@freshmarche.co.jp>",
+            "suspicious": false,
+            "body": "中村様\n\n先日のメールの件ですが、弊社関係者のアドレスが全員に公開されている状態です。\n至急ご説明をお願いします。"
+          }
+        },
+        {
+          "type": "thought",
+          "text": "（メールの宛先も……。全部、今週の——全部、あの時の判断が…\n…）"
+        },
+        {
+          "char": "fujii_shock"
+        },
+        {
+          "type": "dialogue",
+          "speaker": "藤井",
+          "text": "中村さん……なんか北條さんからセキュリティの件で全員に連絡来てるんすけど、\n何かあったんすか？"
+        },
+        {
+          "type": "thought",
+          "text": "（もうダメだ。隠しきれない。全部、つながってる）"
+        }
+      ]
+    },
+    "S10B": {
+      "dayLabel": "金曜日",
+      "next": "S11B",
+      "steps": [
+        {
+          "bg": "bg_office_tense",
+          "day": "金曜日",
+          "char": "none"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "DM: 桜庭美咲 → 中村遥",
+            "messages": [
+              {
+                "sender": "桜庭美咲",
+                "avatarClass": "sakuraba",
+                "initial": "桜",
+                "text": "中村さん、ちょっと電話いい？"
+              }
+            ]
+          }
+        },
+        {
+          "type": "narration",
+          "text": "桜庭の声は、静かだが厳しかった。"
+        },
+        {
+          "type": "narration",
+          "text": "会議室には北條もいた。中村は、今週起きたことを一つずつ説明した。"
+        },
+        {
+          "type": "narration",
+          "text": "月曜日の怪しいメールを開いてしまったこと。火曜日にカフェのフリーWi-Fiで\n顧客の管理画面にログインしたこと。パスワードをSlackで\n共有してしまったこと。メールの宛先を確認せず送信してしまったこと。"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "会議室での会話",
+            "messages": [
+              {
+                "sender": "桜庭美咲",
+                "avatarClass": "sakuraba",
+                "initial": "桜",
+                "text": "……全部、今週の中で起きたことなんだね"
+              },
+              {
+                "sender": "北條健一",
+                "avatarClass": "houjo",
+                "initial": "北",
+                "text": "中村さん、まず落ち着いて。今から対応する。PCをネットワークから切り離して。パスワードは今すぐ全部変更。フレッシュマルシェの管理画面も一時停止する。そこから始めよう"
+              }
+            ]
+          }
+        },
+        {
+          "type": "narration",
+          "text": "北條は冷静だった。一つずつ、対処を進めていく。"
+        },
+        {
+          "ui": "slack",
+          "uiData": {
+            "channel": "会議室での会話",
+            "messages": [
+              {
+                "sender": "桜庭美咲",
+                "avatarClass": "sakuraba",
+                "initial": "桜",
+                "text": "フレッシュマルシェの佐藤部長には私から連絡する。……中村さん、今回は大きな事故にならなくて済んだけど、正直ギリギリだったよ"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "S11B": {
+      "next": "S12B",
+      "steps": [
+        {
+          "bg": "bg_office_evening",
+          "char": "nakamura_worried"
+        },
+        {
+          "type": "narration",
+          "text": "北條と桜庭の迅速な対応で、最悪の事態は回避できた。顧客データの大規模な流出は\nなく、フレッシュマルシェとの関係も修復の見込みが立った。"
+        },
+        {
+          "type": "narration",
+          "text": "しかし——"
+        },
+        {
+          "type": "thought",
+          "text": "（全部、私の判断だった）"
+        },
+        {
+          "type": "thought",
+          "text": "（「忙しいから」「急いでるから」「みんなやってるから」…\n…）"
+        },
+        {
+          "type": "thought",
+          "text": "（そう言い聞かせて、全部後回しにした。その結果が——これだ）"
+        },
+        {
+          "type": "narration",
+          "text": "中村は帰り支度をしながら、今週のことを振り返った。"
+        },
+        {
+          "type": "thought",
+          "text": "（怪しいメールが来た時。1秒だけ立ち止まって、送信元を確認していれば）"
+        },
+        {
+          "type": "thought",
+          "text": "（カフェで。テザリングが遅くても、フリーWi-Fiに繋がなければ）"
+        },
+        {
+          "type": "thought",
+          "text": "（藤井にパスワードを聞かれた時。「ダメ」と言う代わりに、\n画面を見せればよかった）"
+        },
+        {
+          "type": "thought",
+          "text": "（メールを送る前。たった1分の確認を、惜しまなければ）"
+        },
+        {
+          "type": "thought",
+          "text": "（全部、知ってたはずのことだ。研修で聞いたはずのことだ。\nでも——忙しい時に「正しい判断」をするのが、こんなに難しいなんて）"
+        },
+        {
+          "type": "thought",
+          "text": "（……次は。次こそは、立ち止まろう。たった1秒でいいから）"
+        },
+        {
+          "type": "narration",
+          "text": "窓の外では、みなとみらいのビル群が夕日に照らされていた。\n中村の長い一週間は、苦い教訓とともに終わった。"
+        }
+      ]
+    },
+    "S12B": {
+      "next": null,
+      "steps": [
+        {
+          "bg": "result_bad",
+          "char": "nakamura_worried"
+        },
+        {
+          "ui": "result",
+          "uiData": {
+            "grade": "bad",
+            "title": "結果：複数のセキュリティリスクが連鎖し、\nインシデントが発生しました。",
+            "items": [
+              {
+                "status": "dynamic",
+                "text": ""
+              },
+              {
+                "status": "dynamic",
+                "text": ""
+              },
+              {
+                "status": "dynamic",
+                "text": ""
+              },
+              {
+                "status": "dynamic",
+                "text": ""
+              }
+            ],
+            "message": "「忙しい時こそ、立ち止まる1秒が\n自分と会社を守る。\nそして、失敗に気づいたら、\nすぐに報告する勇気を。」"
+          }
+        }
+      ]
+    }
+  }
+}
