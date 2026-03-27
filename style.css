@@ -565,3 +565,44 @@ body {
   letter-spacing: 2px;
   z-index: 41;
 }
+
+/* ========================================
+   縦持ち案内オーバーレイ
+   ======================================== */
+#rotate-hint {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 20, 0.95);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  color: #fff;
+}
+#rotate-hint .rotate-icon {
+  font-size: 64px;
+  animation: rotatePhone 2s ease-in-out infinite;
+}
+#rotate-hint p {
+  font-size: 18px;
+  letter-spacing: 3px;
+  opacity: 0.8;
+}
+@keyframes rotatePhone {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-90deg); }
+  50% { transform: rotate(-90deg); }
+  75% { transform: rotate(0deg); }
+}
+
+/* スマホ縦持ち時のみ表示 */
+@media (max-width: 768px) and (orientation: portrait) {
+  #rotate-hint {
+    display: flex;
+  }
+  #game-container {
+    display: none;
+  }
+}
