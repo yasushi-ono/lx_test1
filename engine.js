@@ -716,6 +716,22 @@ class NovelEngine {
   }
 }
 
+// --- レスポンシブスケーリング ---
+function fitToScreen() {
+  const container = document.getElementById('game-container');
+  const BASE_W = 1280;
+  const BASE_H = 720;
+  const scaleX = window.innerWidth / BASE_W;
+  const scaleY = window.innerHeight / BASE_H;
+  const scale = Math.min(scaleX, scaleY);
+  container.style.transform = `scale(${scale})`;
+}
+window.addEventListener('resize', fitToScreen);
+window.addEventListener('orientationchange', () => {
+  setTimeout(fitToScreen, 100);
+});
+fitToScreen();
+
 // --- 起動 ---
 const engine = new NovelEngine();
 engine.init();
