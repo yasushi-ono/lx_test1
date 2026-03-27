@@ -471,62 +471,6 @@ body {
 .wifi-item.no-lock .wifi-icon { color: #e53e3e; }
 .wifi-item.locked .wifi-icon { color: #38a169; }
 
-/* --- メール作成画面 --- */
-.ui-email-compose {
-  width: 680px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  overflow: hidden;
-  color: #333;
-  font-size: 14px;
-}
-.compose-toolbar {
-  background: #f0f0f0;
-  padding: 10px 16px;
-  display: flex;
-  gap: 8px;
-  border-bottom: 1px solid #ddd;
-}
-.compose-toolbar .btn-send {
-  background: #1a73e8;
-  color: #fff;
-  border: none;
-  padding: 6px 24px;
-  border-radius: 4px;
-  font-size: 13px;
-  cursor: default;
-}
-.compose-fields { padding: 0; }
-.compose-field {
-  display: flex;
-  padding: 10px 16px;
-  border-bottom: 1px solid #eee;
-  font-size: 13px;
-}
-.compose-field .field-label {
-  color: #888;
-  width: 50px;
-  flex-shrink: 0;
-}
-.compose-field .field-value {
-  color: #333;
-  word-break: break-all;
-}
-.compose-field .field-value .mistake {
-  color: #e53e3e;
-  font-weight: bold;
-  background: #fff0f0;
-  padding: 0 3px;
-  border-radius: 2px;
-}
-.compose-body {
-  padding: 16px;
-  min-height: 80px;
-  line-height: 1.7;
-  color: #555;
-}
-
 /* --- リザルト画面 --- */
 .ui-result {
   width: 560px;
@@ -600,21 +544,6 @@ body {
 /* ========================================
    トランジション・アニメーション
    ======================================== */
-.fade-in {
-  animation: fadeIn 0.5s ease forwards;
-}
-.fade-out {
-  animation: fadeOut 0.5s ease forwards;
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
 /* 日付トランジション */
 .day-transition {
   position: absolute;

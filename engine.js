@@ -9,7 +9,7 @@ class NovelEngine {
     this.currentScene = null;
     this.currentStep = 0;
     this.dangerCount = 0;
-    this.choices = { BR1: null, BR2: null, BR3: null, BR4: null, BR5: null };
+    this.choices = { BR1: null, BR2: null, BR3: null, BR4: null };
     this.isAnimating = false;
     this.uiVisible = false;
 
@@ -54,9 +54,39 @@ class NovelEngine {
     if (typeof SCENARIO_DATA !== 'undefined') {
       this.scenarioData = SCENARIO_DATA;
       console.log('Scenario loaded:', Object.keys(this.scenarioData.scenes).length, 'scenes');
+      this.preloadAssets();
     } else {
       console.error('SCENARIO_DATA not found. Make sure scenario.js is loaded before engine.js');
     }
+  }
+
+  // --- アセットプリロード ---
+  preloadAssets() {
+    const images = new Set();
+    // シナリオ内の全画像パスを収集
+    for (const scene of Object.values(this.scenarioData.scenes)) {
+      if (!scene.steps) continue;
+      for (const step of scene.steps) {
+        if (step.bg && step.bg !== 'none' && !step.bg.startsWith('result_')) {
+          images.add(`assets/backgrounds/${step.bg}.webp`);
+        }
+        if (step.char && step.char !== 'none') {
+          images.add(`assets/characters/${step.char}.webp`);
+        }
+      }
+    }
+    // リザルト背景
+    images.add('assets/backgrounds/bg_result_good.webp');
+
+    // バックグラウンドで先読み
+    let loaded = 0;
+    for (const src of images) {
+      const img = new Image();
+      img.onload = () => { loaded++; };
+      img.onerror = () => { console.warn('Preload failed:', src); loaded++; };
+      img.src = src;
+    }
+    console.log(`Preloading ${images.size} assets...`);
   }
 
   // --- ゲーム開始 ---
@@ -64,7 +94,7 @@ class NovelEngine {
     document.getElementById('title-screen').style.display = 'none';
     document.getElementById('game-screen').style.display = 'block';
     this.dangerCount = 0;
-    this.choices = { BR1: null, BR2: null, BR3: null, BR4: null, BR5: null };
+    this.choices = { BR1: null, BR2: null, BR3: null, BR4: null };
     this.loadScene('S1');
   }
 
@@ -270,6 +300,10 @@ class NovelEngine {
     const side = isFujii ? 'left' : 'right';
 
     // スプライト画像を設定
+    sprite.onerror = () => {
+      console.warn('Character image not found:', charId);
+      sprite.style.display = 'none';
+    };
     sprite.src = `assets/characters/${charId}.webp`;
     sprite.style.display = 'block';
     sprite.style.opacity = '0';
@@ -419,9 +453,6 @@ class NovelEngine {
       case 'email':
         html = this.buildEmailUI(data);
         break;
-      case 'email_compose':
-        html = this.buildEmailComposeUI(data);
-        break;
       case 'address_compare':
         html = this.buildAddressCompareUI(data);
         break;
@@ -480,20 +511,6 @@ class NovelEngine {
     }
     html += '</div>';
     return html;
-  }
-
-  // --- メール作成UI構築 ---
-  buildEmailComposeUI(data) {
-    return `<div class="ui-email-compose">
-      <div class="compose-toolbar"><span class="btn-send">送信</span></div>
-      <div class="compose-fields">
-        <div class="compose-field"><span class="field-label">To:</span><span class="field-value">${data.to}</span></div>
-        <div class="compose-field"><span class="field-label">Cc:</span><span class="field-value">${data.cc}</span></div>
-        <div class="compose-field"><span class="field-label">Bcc:</span><span class="field-value">${data.bcc || '（空欄）'}</span></div>
-        <div class="compose-field"><span class="field-label">件名:</span><span class="field-value">${data.subject}</span></div>
-      </div>
-      <div class="compose-body">${data.body}</div>
-    </div>`;
   }
 
   // --- アドレス比較UI構築 ---
@@ -665,16 +682,6 @@ class NovelEngine {
       return routeConfig.target;
     }
     return null;
-  }
-
-  // --- NORMALルート用：どの選択肢を間違えたか取得 ---
-  getDangerChoices() {
-    const dangers = [];
-    if (this.choices.BR1 === 'A') dangers.push('email');
-    if (this.choices.BR2 === 'A') dangers.push('wifi');
-    if (this.choices.BR3 === 'A') dangers.push('password');
-    if (this.choices.BR4 === 'A') dangers.push('mail_cc');
-    return dangers;
   }
 
   // --- リザルトデータ生成 ---
