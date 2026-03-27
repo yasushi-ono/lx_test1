@@ -723,8 +723,8 @@ function fitToScreen() {
   const BASE_H = 720;
   const scaleX = window.innerWidth / BASE_W;
   const scaleY = window.innerHeight / BASE_H;
-  const scale = Math.min(scaleX, scaleY);
-  container.style.transform = `scale(${scale})`;
+  const scale = Math.min(scaleX, scaleY, 1); // 1を超えない＝PCでは等倍
+  container.style.transform = scale < 1 ? `scale(${scale})` : '';
 }
 window.addEventListener('resize', fitToScreen);
 window.addEventListener('orientationchange', () => {
