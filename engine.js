@@ -723,8 +723,21 @@ function fitToScreen() {
   const BASE_H = 720;
   const scaleX = window.innerWidth / BASE_W;
   const scaleY = window.innerHeight / BASE_H;
-  const scale = Math.min(scaleX, scaleY, 1); // 1を超えない＝PCでは等倍
-  container.style.transform = scale < 1 ? `scale(${scale})` : '';
+  const scale = Math.min(scaleX, scaleY, 1);
+
+  if (scale < 1) {
+    // スマホ・小画面：fixed配置でビューポート中央にscale
+    container.style.position = 'fixed';
+    container.style.left = '50%';
+    container.style.top = '50%';
+    container.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  } else {
+    // PC：通常配置（bodyのflexで中央寄せ）
+    container.style.position = '';
+    container.style.left = '';
+    container.style.top = '';
+    container.style.transform = '';
+  }
 }
 window.addEventListener('resize', fitToScreen);
 window.addEventListener('orientationchange', () => {
